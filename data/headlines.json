@@ -1,0 +1,22 @@
+{
+  "stories": [
+    {
+      "headline": "This is story one"
+    },
+    {
+      "headline": "This is story two"
+    },
+    {
+      "headline": "This is story three"
+    },
+    {
+      "headline": "This is story four"
+    },
+    {
+      "headline": "This is story five"
+    },
+    {
+      "headline": "This is story six"
+    }
+  ]
+}
