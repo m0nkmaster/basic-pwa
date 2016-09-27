@@ -20,6 +20,9 @@ let CURRENT_CACHES = {
   offline: 'm0nkmaster' + CACHE_VERSION
 };
 const OFFLINE_URL = 'story.html';
+var urlsToCache = [
+  'data/stories.json'
+];
 
 function createCacheBustedRequest(url) {
   let request = new Request(url, {cache: 'reload'});
@@ -45,6 +48,14 @@ self.addEventListener('install', event => {
         return cache.put(OFFLINE_URL, response);
       });
     })
+  );
+
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(function(cache) {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache);
+      })
   );
 });
 
