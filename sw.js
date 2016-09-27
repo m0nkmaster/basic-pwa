@@ -19,17 +19,17 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(e) {
-  console.log('[ServiceWorker] Fetch', e.request.url);
+  console.log('[ServiceWorker] Fetch', event.request.url);
   var dataUrl = 'data/stories.json';
-  if (e.request.url.indexOf(dataUrl) === 0) {
+  if (event.request.url.indexOf(dataUrl) === 0) {
     // Put data handler code here
     console.log = 'We have a data request';
   } else {
     console.log = 'Not a JSON request, just let through';
-    e.respondWith(
+    event.respondWith(
         caches.match(event.request).then(function(response) {
         if (response) {
-          console.log('Found ' + e.request.url + ' response in cache:', response);
+          console.log('Found ' + event.request.url + ' response in cache:', response);
           return response;
         }
         console.log('No response found in cache. About to fetch from network...');
