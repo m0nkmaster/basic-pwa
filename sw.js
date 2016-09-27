@@ -20,7 +20,7 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', function(event) {
   //console.log('[ServiceWorker] Fetch' + event.request.url);
-  var dataUrl = 'data/stories.json';
+  var dataUrl = 'pwa';
   if (event.request.url.indexOf(dataUrl) === 0) {
     // Put data handler code here
     //console.log = 'We have a data request';
