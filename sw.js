@@ -116,7 +116,7 @@ self.addEventListener('fetch', event => {
 
   var jsUrl = 'vendor';
   var dataUrl = 'stories.json';
-  if (event.request.url.indexOf(dataUrl) === 0 || vent.request.url.indexOf(jsUrl) === 0) {
+  if (event.request.url.indexOf(dataUrl) === 0 || event.request.url.indexOf(jsUrl) === 0) {
     // Put data handler code here
     console.log = 'Not a cache page';
   } else {
