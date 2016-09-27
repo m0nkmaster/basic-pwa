@@ -27,7 +27,7 @@ self.addEventListener('fetch', function(e) {
   } else {
     console.log = 'Not a JSON request, just let through';
     e.respondWith(
-      return response;
+      response
     )
   }
  });
