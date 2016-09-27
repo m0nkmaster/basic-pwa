@@ -1,6 +1,5 @@
 var CACHE_NAME = 'm0nkmaster';
 var urlsToCache = [
-  '',
   'data/stories.json'
 ];
 
@@ -19,19 +18,17 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('fetch', function(event) {
-  console.log("Fetch event happened");
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
-        console.log("Cache hit");
-        if (response) {
-          return response;
-        }
-        console.log("Cache miss");
-        return fetch(event.request);
-      }
-    )
-  );
+self.addEventListener('fetch', function(e) {
+  console.log('[ServiceWorker] Fetch', e.request.url);
+  var dataUrl = 'data/stories.json';
+  if (e.request.url.indexOf(dataUrl) === 0) {
+    // Put data handler code here
+    console.log = 'We have a data request';
+  } else {
+    e.respondWith(
+      console.log = 'Not a JSON request, just let through';
+      return response;
+      })
+    );
+  }
 });
