@@ -16,12 +16,15 @@
 // Incrementing CACHE_VERSION will kick off the install event and force previously cached
 // resources to be cached again.
 const CACHE_VERSION = 2;
+const CACHE_NAME = 'm0nkmaster';
 let CURRENT_CACHES = {
   offline: 'm0nkmaster' + CACHE_VERSION
 };
 const OFFLINE_URL = 'story.html';
 var urlsToCache = [
-  'data/stories.json'
+  'data/stories.json',
+  'vendor/jquery.js',
+  'vendor/mustache.js'
 ];
 
 function createCacheBustedRequest(url) {
