@@ -113,4 +113,32 @@ self.addEventListener('fetch', event => {
   // If there are any other fetch handlers registered, they will get a chance to call
   // event.respondWith(). If no fetch handlers call event.respondWith(), the request will be
   // handled by the browser as if there were no service worker involvement.
+
+  var jsUrl = 'vendor';
+  var dataUrl = 'stories.json';
+  if (event.request.url.indexOf(dataUrl) === 0 || vent.request.url.indexOf(jsUrl) === 0) {
+    // Put data handler code here
+    console.log = 'Not a cache page';
+  } else {
+    console.log = 'Returning from cache';
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+        if (response) {
+          console.log('Found ' + event.request.url + ' response in cache:' + response);
+          return response;
+        }
+        console.log('No response found in cache. About to fetch from network...');
+
+        return fetch(event.request).then(function(response) {
+          console.log('Response from network is:' + response);
+
+          return response;
+        }).catch(function(error) {
+          console.error('Fetching failed:' + error);
+
+          throw error;
+        });
+      })
+    )
+
 });
