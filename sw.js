@@ -18,7 +18,7 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('fetch', function(e) {
+self.addEventListener('fetch', function(event) {
   console.log('[ServiceWorker] Fetch', event.request.url);
   var dataUrl = 'data/stories.json';
   if (event.request.url.indexOf(dataUrl) === 0) {
