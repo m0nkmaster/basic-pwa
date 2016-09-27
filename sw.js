@@ -1,4 +1,4 @@
-var CHANGE_NAME = 'm0nkmaster';
+var CACHE_NAME = 'm0nkmaster';
 var urlsToCache = [
   '',
   'data/stories.json'
