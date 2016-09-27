@@ -1,1 +1,24 @@
-hi, this is my page which uses a ServiceWorker.
+<html>
+  <head>
+    <title>PWS - ServiceWorker</title>
+    
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      }
+    </script>
+  </head>
+  
+  <body>
+  
+    <h1>Basic hack which uses a ServiceWorker</h1>
+    
+    <p>Some tests and experiments</p>
+  </body>
+</html>
