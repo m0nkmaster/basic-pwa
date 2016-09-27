@@ -19,27 +19,27 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log('[ServiceWorker] Fetch' + event.request.url);
+  //console.log('[ServiceWorker] Fetch' + event.request.url);
   var dataUrl = 'data/stories.json';
   if (event.request.url.indexOf(dataUrl) === 0) {
     // Put data handler code here
-    console.log = 'We have a data request';
+    //console.log = 'We have a data request';
   } else {
-    console.log = 'Not a JSON request, just let through';
+    //console.log = 'Not a JSON request, just let through';
     event.respondWith(
         caches.match(event.request).then(function(response) {
         if (response) {
-          console.log('Found ' + event.request.url + ' response in cache:' + response);
+          //console.log('Found ' + event.request.url + ' response in cache:' + response);
           return response;
         }
-        console.log('No response found in cache. About to fetch from network...');
+        //console.log('No response found in cache. About to fetch from network...');
 
         return fetch(event.request).then(function(response) {
-          console.log('Response from network is:' + response);
+          //console.log('Response from network is:' + response);
 
           return response;
         }).catch(function(error) {
-          console.error('Fetching failed:' + error);
+          //console.error('Fetching failed:' + error);
 
           throw error;
         });
