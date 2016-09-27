@@ -20,15 +20,16 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  console.log("event is: " + event.request);
-  console.log(event);
+  console.log("Fetch event happened");
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
         // Cache hit - return response
+        console.log("Cache hit");
         if (response) {
           return response;
         }
+        console.log("Cache miss");
         return fetch(event.request);
       }
     )
