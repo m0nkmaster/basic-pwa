@@ -19,7 +19,7 @@ const CACHE_VERSION = 1;
 let CURRENT_CACHES = {
   offline: 'm0nkmaster' + CACHE_VERSION
 };
-const OFFLINE_URL = 'offline.html';
+const OFFLINE_URL = 'story.html';
 
 function createCacheBustedRequest(url) {
   let request = new Request(url, {cache: 'reload'});
