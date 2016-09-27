@@ -1,7 +1,7 @@
 var CACHE_NAME = 'm0nkmaster';
 var urlsToCache = [
   '',
-  'data/headlines.json'
+  'data/stories.json'
 ];
 
 self.addEventListener('install', function(event) {
