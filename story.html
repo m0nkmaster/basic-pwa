@@ -6,7 +6,9 @@
 
     <script>
     $.getJSON('data/stories.json', function(data) {
-        var template = "<h1>{{headline}}</h1>";
+        var template = "Employees:<ul>{{#stories}}" +
+                            "<li>{{headline}}</li>" +
+                            "{{/stories}}</ul>";
         var html = Mustache.to_html(template, data);
         $('#body').html(html);
     });
