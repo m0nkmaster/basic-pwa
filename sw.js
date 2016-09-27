@@ -4,7 +4,7 @@ var urlsToCache = [
 ];
 
 self.addEventListener('install', function(event) {
-  // Perform install steps
+  // Perform install steps - only happens once, at start
 
   console.log("Hi I'm the service worker you've heard so much about");
 
@@ -25,10 +25,9 @@ self.addEventListener('fetch', function(e) {
     // Put data handler code here
     console.log = 'We have a data request';
   } else {
+    console.log = 'Not a JSON request, just let through';
     e.respondWith(
-      console.log = 'Not a JSON request, just let through';
       return response;
-      })
-    );
+    )
   }
-});
+);
