@@ -1,22 +1,12 @@
 {
-  "stories": [
-    {
-      "headline": "This is story one"
+  "stories": {
+    "1234": {
+      "headline": "This is story one",
+      "body": "This is story body"
     },
-    {
-      "headline": "This is story two"
-    },
-    {
-      "headline": "This is story three"
-    },
-    {
-      "headline": "This is story four"
-    },
-    {
-      "headline": "This is story five"
-    },
-    {
-      "headline": "This is story six"
+    "2345": {
+      "headline": "This is story two",
+      "body": "This is story body two"
     }
-  ]
+  }
 }
