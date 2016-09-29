@@ -72,6 +72,8 @@ self.addEventListener('fetch', event => {
                 return data.json().then(function(json) {
 
                     var storyId = event.request.url.match(/[\d]+/);
+                    console.log('Story ID:')
+                    console.log(storyId);
 
                     var template = `
                     <html>
