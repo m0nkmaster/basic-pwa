@@ -2,6 +2,7 @@
 
 const CACHE_VERSION = 1;
 const TEMPLATE_URL = 'template.html'
+const DATA_URL = 'data/stories.json'
 const CURRENT_CACHES = {
   data: 'data-cache-v' + CACHE_VERSION,
   templates: 'templates-cache-v' + CACHE_VERSION
@@ -14,6 +15,16 @@ self.addEventListener('install', event => {
     fetch(TEMPLATE_URL).then(function(response) {
       return caches.open(CURRENT_CACHES.templates).then(function(cache) {
         return cache.put(TEMPLATE_URL, response);
+      });
+    })
+  );
+
+  event.waitUntil(
+    // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
+    // the actual URL we end up requesting might include a cache-busting parameter.
+    fetch(DATA_URL).then(function(response) {
+      return caches.open(CURRENT_CACHES.data).then(function(cache) {
+        return cache.put(DATA_URL, response);
       });
     })
   );
@@ -57,8 +68,31 @@ self.addEventListener('fetch', event => {
 
             console.log('Fetch failed; returning offline page instead.', error);
 
+            // get html from cache
+            //  {{headllines}} {{body}}
 
-            return new Response("Hello world! :-)");
+            //GET TEMPLATE FROM CACHE
+            var template = `
+            <html>
+              <head>
+                <title>PWS - ServiceWorker</title>
+              </head>
+              <body>
+
+                <h1>{{headline}}</h1>
+
+                <p>{{body}}</p>
+              </body>
+            </html>
+            `;
+
+            var json = response.json().then(function(json) {
+              // do something with your JSON
+              var final template.replace({{head}}, 'Title');
+              final template.replace({{body}}, 'Body sdfas fasdf sdf asdf sdDF SADF A');
+            });
+
+            return new Response(final);
             //return caches.match(TEMPLATE_URL);
           })
         );
