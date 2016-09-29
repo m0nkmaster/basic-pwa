@@ -58,8 +58,8 @@ self.addEventListener('fetch', event => {
             console.log('Fetch failed; returning offline page instead.', error);
 
 
-
-            return caches.match(TEMPLATE_URL);
+            return new Response("Hello world! :-)");
+            //return caches.match(TEMPLATE_URL);
           })
         );
     }
