@@ -52,7 +52,13 @@ self.addEventListener('fetch', event => {
             // If fetch() returns a valid HTTP response with an response code in the 4xx or 5xx
             // range, the catch() will NOT be called. If you need custom handling for 4xx or 5xx
             // errors, see https://github.com/GoogleChrome/samples/tree/gh-pages/service-worker/fallback-response
+
+            // 1) Get JSON, Get template, Replace placeholders in the template with the JSON, return to user
+
             console.log('Fetch failed; returning offline page instead.', error);
+
+
+
             return caches.match(TEMPLATE_URL);
           })
         );
