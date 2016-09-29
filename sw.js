@@ -92,8 +92,8 @@ self.addEventListener('fetch', event => {
 
                   // do something with your JSON
                   var final = template.replace("{{head}}", "Title");
-                  final = template.replace("{{body}}", "Body sdfas fasdf sdf asdf sdDF SADF A");
-                  
+                  final = final.replace("{{body}}", "Body sdfas fasdf sdf asdf sdDF SADF A");
+
                   return new Response(final);
                   //return caches.match(TEMPLATE_URL);
                 });
