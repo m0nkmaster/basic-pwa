@@ -2,14 +2,14 @@
 
 const CACHE_VERSION = 1;
 
-const CURRENT_CACHE = {
+const CURRENT_CACHES = {
   data: 'data-cache-v' + CACHE_VERSION,
   templates: 'templates-cache-v' + CACHE_VERSION
 };
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CURRENT_CACHE.data)
+    caches.open(CURRENT_CACHES.data)
     .then(cache => {
       return cache.add('data/stories.json')
     })
