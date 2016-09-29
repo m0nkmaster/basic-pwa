@@ -88,8 +88,8 @@ self.addEventListener('fetch', event => {
                     `;
 
                   // do something with your JSON
-                  var final = template.replace(/{{headline}}/g, json.stories[storyId].headline);
-                  final = final.replace("{{body}}", json.stories[storyId].body);
+                  var final = template.replace(/{{headline}}/g, json.stories[storyId[0]].headline);
+                  final = final.replace("{{body}}", json.stories[storyId[0]].body);
                   return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
                   //return caches.match(TEMPLATE_URL);
                 });
