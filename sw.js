@@ -40,8 +40,9 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', event => {
     console.log('Handling fetch event for', event.request.url);
+    var url = event.request.url;
     event.respondWith(
-        fetch(caches.match(CURRENT_CACHE.data))
+        fetch(caches.match(CURRENT_CACHE.data.url))
     );
 });
 
