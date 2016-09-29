@@ -94,11 +94,12 @@ self.addEventListener('fetch', event => {
                   var final = template.replace("{{head}}", "Title");
                   final = final.replace("{{body}}", "Body sdfas fasdf sdf asdf sdDF SADF A");
 
-                  return new Response(final);
+
                   //return caches.match(TEMPLATE_URL);
                 });
+            }).then(page => {
+                return new Response(page);
             });
-
           })
         );
     }
