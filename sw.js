@@ -69,6 +69,8 @@ self.addEventListener('fetch', event => {
             console.log('Fetch failed; returning offline page instead.', error);
 
             return caches.match(TEMPLATE_URL).then(template => {
+                console.log('Template: ');
+                console.log(template);
                 return caches.match(DATA_URL).then(data => {
                     return data.json().then(function(json) {
 
