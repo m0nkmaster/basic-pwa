@@ -73,8 +73,8 @@ self.addEventListener('fetch', event => {
 
             //GET TEMPLATE FROM CACHE
 
-            caches.match(DATA_URL).then(data => {
-                data.json().then(function(json) {
+            return caches.match(DATA_URL).then(data => {
+                return data.json().then(function(json) {
 
                     var template = `
                     <html>
