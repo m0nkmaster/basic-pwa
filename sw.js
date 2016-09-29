@@ -28,13 +28,18 @@ self.addEventListener('activate', function(event) {
         cacheNames.map(function(cacheName) {
           if (expectedCacheNames.indexOf(cacheName) == -1) {
             console.log('Deleting out of date cache:', cacheName);
-            
+
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
+});
+
+
+self.addEventListener('fetch', event => {
+    console.log('Handling fetch event for', event.request.url);
 });
 
 /*self.addEventListener('fetch', event => {
