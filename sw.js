@@ -73,7 +73,7 @@ self.addEventListener('fetch', event => {
                 return data.json().then(function(json) {
 
                     // var storyId = event.request.url.match(/[\d]+/);
-                    console.log(event.request.url);
+                    //console.log(event.request.url);
                     var template = `
                     <html>
                       <head>
