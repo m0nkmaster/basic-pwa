@@ -68,12 +68,9 @@ self.addEventListener('fetch', event => {
 
             console.log('Fetch failed; returning offline page instead.', error);
 
-
             return caches.match(DATA_URL).then(data => {
                 return data.json().then(function(json) {
 
-                    // var storyId = event.request.url.match(/[\d]+/);
-                    //console.log(event.request.url);
                     var template = `
                     <html>
                       <head>
