@@ -43,6 +43,7 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('fetch', event => {
     console.log('Handling fetch event for', event.request.url);
 
+    // Handle stories
     if (event.request.url.match(/stories\/[\d]+\.html/i)) {
         event.respondWith(
           fetch(event.request).catch(error => {
