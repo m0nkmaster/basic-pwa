@@ -71,7 +71,7 @@ self.addEventListener('fetch', event => {
             return caches.match(DATA_URL).then(data => {
                 return data.json().then(function(json) {
 
-                    console.log(event.request.url);
+                    console.log("RequestURL:" + event.request.url);
 
                     var template = `
                     <html>
