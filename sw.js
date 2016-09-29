@@ -9,13 +9,6 @@ const CURRENT_CACHES = {
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CURRENT_CACHES.data)
-    .then(cache => {
-      return cache.add('data/stories.json')
-    })
-  );
-
-  event.waitUntil(
     // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
     // the actual URL we end up requesting might include a cache-busting parameter.
     fetch(TEMPLATE_URL).then(function(response) {
@@ -38,7 +31,6 @@ self.addEventListener('activate', function(event) {
         cacheNames.map(function(cacheName) {
           if (expectedCacheNames.indexOf(cacheName) == -1) {
             console.log('Deleting out of date cache:', cacheName);
-
             return caches.delete(cacheName);
           }
         })
