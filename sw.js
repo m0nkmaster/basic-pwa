@@ -72,27 +72,33 @@ self.addEventListener('fetch', event => {
             //  {{headllines}} {{body}}
 
             //GET TEMPLATE FROM CACHE
-            var template = `
-            <html>
-              <head>
-                <title>PWS - ServiceWorker</title>
-              </head>
-              <body>
 
-                <h1>{{headline}}</h1>
+            caches.match(DATA_URL).then(data => {
+                data.json().then(function(json) {
 
-                <p>{{body}}</p>
-              </body>
-            </html>
-            `;
+                var template = `
+                <html>
+                  <head>
+                    <title>PWS - ServiceWorker</title>
+                  </head>
+                  <body>
 
-            var json = response.json().then(function(json) {
-              // do something with your JSON
-              var final = template.replace("{{head}}", "Title");
-              final = template.replace("{{body}}", "Body sdfas fasdf sdf asdf sdDF SADF A");
-              return new Response(final);
-              //return caches.match(TEMPLATE_URL);
+                    <h1>{{headline}}</h1>
+
+                    <p>{{body}}</p>
+                  </body>
+                </html>
+                `;
+
+                  // do something with your JSON
+                  var final = template.replace("{{head}}", "Title");
+                  final = template.replace("{{body}}", "Body sdfas fasdf sdf asdf sdDF SADF A");
+                  
+                  return new Response(final);
+                  //return caches.match(TEMPLATE_URL);
+                });
             });
+
           })
         );
     }
