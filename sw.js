@@ -98,9 +98,6 @@ self.addEventListener('fetch', event => {
                   //return caches.match(TEMPLATE_URL);
                 });
             });
-
-            return new Response('not worked');
-
           })
         );
     }
