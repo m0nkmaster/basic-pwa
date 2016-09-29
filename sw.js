@@ -71,7 +71,7 @@ self.addEventListener('fetch', event => {
             return caches.match(DATA_URL).then(data => {
                 return data.json().then(function(json) {
 
-                    var storyId = event.request.url.match(/[\d]+/);
+                    var storyId = event.request.url.match(/[\d]{2,}/);
                     console.log('Story ID:')
                     console.log(storyId);
 
