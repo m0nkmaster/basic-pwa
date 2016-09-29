@@ -69,32 +69,34 @@ self.addEventListener('fetch', event => {
             console.log('Fetch failed; returning offline page instead.', error);
 
             return caches.match(TEMPLATE_URL).then(template => {
-                console.log('Template: ');
-                console.log(template);
-                return caches.match(DATA_URL).then(data => {
-                    return data.json().then(function(json) {
+                return template.blob().then(function(templateBlob) {
+                    console.log('Template blob: ');
+                    console.log(templateBlob);
+                    return caches.match(DATA_URL).then(data => {
+                        return data.json().then(function(json) {
 
-                        var storyId = event.request.url.match(/[\d]{2,}/);
+                            var storyId = event.request.url.match(/[\d]{2,}/);
 
-                        var template = `
-                        <html>
-                          <head>
-                            <title>{{headline}} - PWS - ServiceWorker</title>
-                          </head>
-                          <body>
+                            var template = `
+                            <html>
+                              <head>
+                                <title>{{headline}} - PWS - ServiceWorker</title>
+                              </head>
+                              <body>
 
-                            <h1>{{headline}}</h1>
+                                <h1>{{headline}}</h1>
 
-                            <p>{{body}}</p>
-                          </body>
-                        </html>
-                        `;
+                                <p>{{body}}</p>
+                              </body>
+                            </html>
+                            `;
 
-                      // do something with your JSON
-                      var final = template.replace(/{{headline}}/g, json.stories[storyId[0]].headline);
-                      final = final.replace("{{body}}", json.stories[storyId[0]].body);
-                      return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
-                      //return caches.match(TEMPLATE_URL);
+                          // do something with your JSON
+                          var final = template.replace(/{{headline}}/g, json.stories[storyId[0]].headline);
+                          final = final.replace("{{body}}", json.stories[storyId[0]].body);
+                          return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
+                          //return caches.match(TEMPLATE_URL);
+                        });
                     });
                 });
             });
