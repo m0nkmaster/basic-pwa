@@ -88,8 +88,8 @@ self.addEventListener('fetch', event => {
 
             var json = response.json().then(function(json) {
               // do something with your JSON
-              var final template.replace({{head}}, 'Title');
-              final template.replace({{body}}, 'Body sdfas fasdf sdf asdf sdDF SADF A');
+              var final template.replace('{{head}}', 'Title');
+              final template.replace('{{body}}', 'Body sdfas fasdf sdf asdf sdDF SADF A');
             });
 
             return new Response(final);
