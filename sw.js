@@ -68,24 +68,33 @@ self.addEventListener('fetch', event => {
 
             console.log('Fetch failed; returning offline page instead.', error);
 
-            return caches.match(TEMPLATE_URL).then(template => {
-                return template.blob().then(templateHtml => {
-                    return caches.match(DATA_URL).then(data => {
-                        return data.json().then(json => {
+            return caches.match(DATA_URL).then(data => {
+                return data.json().then(function(json) {
 
-                            var storyId = event.request.url.match(/[\d]{2,}/);
+                    var storyId = event.request.url.match(/[\d]{2,}/);
 
+                    var template = `
+                    <html>
+                      <head>
+                        <title>{{headline}} - PWS - ServiceWorker</title>
+                      </head>
+                      <body>
 
+                        <h1>{{headline}}</h1>
 
-                          // do something with your JSON
-                          var final = templateHtml.replace(/{{headline}}/g, json.stories[storyId[0]].headline);
-                          final = final.replace("{{body}}", json.stories[storyId[0]].body);
-                          return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
-                          //return caches.match(TEMPLATE_URL);
-                        });
-                    });
+                        <p>{{body}}</p>
+                      </body>
+                    </html>
+                    `;
+
+                  // do something with your JSON
+                  var final = template.replace(/{{headline}}/g, json.stories[storyId[0]].headline);
+                  final = final.replace("{{body}}", json.stories[storyId[0]].body);
+                  return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
+                  //return caches.match(TEMPLATE_URL);
                 });
             });
+
           })
         );
     }
