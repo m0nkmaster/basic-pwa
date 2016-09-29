@@ -73,6 +73,7 @@ self.addEventListener('fetch', event => {
                 return data.json().then(function(json) {
 
                     var storyId = event.request.url.match(/[\d]+/);
+                    console.log(storyId);
                     var template = `
                     <html>
                       <head>
@@ -88,8 +89,8 @@ self.addEventListener('fetch', event => {
                     `;
 
                   // do something with your JSON
-                  var final = template.replace(/{{headline}}/g, json.stories[storyId[0]].headline);
-                  final = final.replace("{{body}}", json.stories[storyId[0]].body);
+                  var final = template.replace(/{{headline}}/g, json.stories["1234"].headline);
+                  final = final.replace("{{body}}", json.stories["1234"].body);
                   return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
                   //return caches.match(TEMPLATE_URL);
                 });
