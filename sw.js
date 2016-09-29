@@ -68,14 +68,11 @@ self.addEventListener('fetch', event => {
 
             console.log('Fetch failed; returning offline page instead.', error);
 
-            // get html from cache
-            //  {{headllines}} {{body}}
-
-            //GET TEMPLATE FROM CACHE
 
             return caches.match(DATA_URL).then(data => {
                 return data.json().then(function(json) {
 
+                    var storyId = event.request.url.match(/[\d]+/);
                     var template = `
                     <html>
                       <head>
@@ -91,8 +88,8 @@ self.addEventListener('fetch', event => {
                     `;
 
                   // do something with your JSON
-                  var final = template.replace(/{{headline}}/g, json.stories["1234"].headline);
-                  final = final.replace("{{body}}", json.stories["1234"].body);
+                  var final = template.replace(/{{headline}}/g, json.stories[storyId].headline);
+                  final = final.replace("{{body}}", json.stories[storyId].body);
                   return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
                   //return caches.match(TEMPLATE_URL);
                 });
