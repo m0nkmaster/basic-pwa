@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 4;
 const INDEX_URL = 'index.html';
 const TEMPLATE_URL = 'template.html';
 const DATA_URL = 'data/stories.json';
