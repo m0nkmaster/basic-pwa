@@ -53,6 +53,11 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     console.log('Handling fetch event for', event.request.url);
 
+    // Handle homepage
+    if (event.request.url.match(/\/$|index\.html/i)) {
+      console.log('HOMEPAGE');
+    }
+
     // Handle stories
     if (event.request.url.match(/stories\/[\d]+\.html/i)) {
         event.respondWith(
