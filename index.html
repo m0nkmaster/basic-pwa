@@ -3,8 +3,74 @@
     <meta charset="utf-8">
     <title>PWS - ServiceWorker - Index</title>
 
-    <link rel="stylesheet" href="css/gel-typography.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+     <style>
+body {
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+header {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #ccc;
+}
+
+header > img {
+    vertical-align: middle;
+}
+
+.sport-banner {
+    padding: 16px;
+    background: #ffdf43;
+}
+
+svg {
+    height: 30px;
+}
+
+footer {
+    padding: 32px 16px;
+    clear: both;
+    background: #333;
+    color: white;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: inherit;
+    color: currentcolor;
+}
+
+.news-list {
+    margin: 0;
+    padding: 16px;
+}
+
+.news-list li {
+    display: block;
+    float: left;
+    padding: 0 16px 16px 0;
+    width: 237px;
+}
+
+.news-list img {
+    width: 100%;
+}
+
+article {
+    margin-left: 16px;
+    width: 660px;
+}
+
+article h1 {
+    font-size: 32px;
+}
+
+ article p {
+    line-height: 1.25em;
+ }
+    </style>
 
     <script>
       if ('serviceWorker' in navigator) {
