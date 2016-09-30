@@ -87,14 +87,10 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
     console.log('Handling fetch event for', event.request.url);
-
     // Handle homepage
     if (event.request.url.match(/\/$|index\.html/i)) {
       event.respondWith(
           fetch(event.request).catch(error => {
-
-            console.log('Fetch failed; returning offline page for homepage instead.', error);
-
             return caches.match(INDEX_URL);
           })
         );
@@ -116,8 +112,6 @@ self.addEventListener('fetch', event => {
 
             return caches.match(TEMPLATE_URL).then(template => {
                 return template.text().then(templateText => {
-                    console.log('Template text: ');
-                    console.log(templateText);
                     return caches.match(DATA_URL).then(data => {
                         return data.json().then(json => {
 
