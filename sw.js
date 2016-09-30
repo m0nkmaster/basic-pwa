@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_VERSION = 6;
+const CACHE_VERSION = 7;
 const INDEX_URL = 'index.html';
 const TEMPLATE_URL = 'template.html';
 const DATA_URL = 'data/stories.json';
@@ -89,6 +89,7 @@ self.addEventListener('fetch', event => {
     console.log('Handling fetch event for', event.request.url);
     // Handle homepage
     if (event.request.url.match(/\/$|index\.html/i)) {
+      console.log('Homepage fetch event for', event.request.url);
       event.respondWith(
           fetch(event.request).catch(error => {
             return caches.match(INDEX_URL);
@@ -98,6 +99,7 @@ self.addEventListener('fetch', event => {
 
     // Handle stories
     if (event.request.url.match(/stories\/[\d]+\.html/i)) {
+        console.log('Story fetch event for', event.request.url);
         event.respondWith(
           fetch(event.request).catch(error => {
             // The catch is only triggered if fetch() throws an exception, which will most likely
