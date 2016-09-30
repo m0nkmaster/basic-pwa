@@ -5,7 +5,7 @@ const INDEX_URL = 'index.html';
 const TEMPLATE_URL = 'template.html';
 const DATA_URL = 'data/stories.json';
 const BBC_IMAGE = 'images/bbc-blocks-dark.png';
-const THUMB = 'image/thumbnail.jpg';
+const THUMB = 'images/thumbnail.jpg';
 const CURRENT_CACHES = {
   data: 'data-cache-v' + CACHE_VERSION,
   templates: 'templates-cache-v' + CACHE_VERSION,
