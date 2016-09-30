@@ -4,10 +4,13 @@ const CACHE_VERSION = 4;
 const INDEX_URL = 'index.html';
 const TEMPLATE_URL = 'template.html';
 const DATA_URL = 'data/stories.json';
+const BBC_IMAGE = 'images/bbc-blocks-dark.png';
+const THUMB = 'image/thumbnail.jpg';
 const CURRENT_CACHES = {
   data: 'data-cache-v' + CACHE_VERSION,
   templates: 'templates-cache-v' + CACHE_VERSION,
-  index: 'index-cache-v' + CACHE_VERSION
+  index: 'index-cache-v' + CACHE_VERSION,
+  assets: 'assets-cache-v' + CACHE_VERSION
 };
 
 self.addEventListener('install', event => {
@@ -24,9 +27,29 @@ self.addEventListener('install', event => {
   event.waitUntil(
     // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
     // the actual URL we end up requesting might include a cache-busting parameter.
-    fetch(DATA_URL).then(response => {
-      return caches.open(CURRENT_CACHES.data).then(cache => {
-        return cache.put(DATA_URL, response);
+    fetch(THUMB).then(response => {
+      return caches.open(CURRENT_CACHES.assets).then(cache => {
+        return cache.put(THUMB, response);
+      });
+    })
+  );
+
+  event.waitUntil(
+    // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
+    // the actual URL we end up requesting might include a cache-busting parameter.
+    fetch(BBC_IMAGE).then(response => {
+      return caches.open(CURRENT_CACHES.assets).then(cache => {
+        return cache.put(BBC_IMAGE, response);
+      });
+    })
+  );
+
+  event.waitUntil(
+    // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
+    // the actual URL we end up requesting might include a cache-busting parameter.
+    fetch(TEMPLATE_URL).then(response => {
+      return caches.open(CURRENT_CACHES.templates).then(cache => {
+        return cache.put(TEMPLATE_URL, response);
       });
     })
   );
