@@ -1,11 +1,13 @@
 'use strict';
 
 const CACHE_VERSION = 1;
-const TEMPLATE_URL = 'template.html'
-const DATA_URL = 'data/stories.json'
+const INDEX_URL = 'index.html';
+const TEMPLATE_URL = 'template.html';
+const DATA_URL = 'data/stories.json';
 const CURRENT_CACHES = {
   data: 'data-cache-v' + CACHE_VERSION,
-  templates: 'templates-cache-v' + CACHE_VERSION
+  templates: 'templates-cache-v' + CACHE_VERSION,
+  index: 'index-cache-v' + CACHE_VERSION
 };
 
 self.addEventListener('install', event => {
@@ -25,6 +27,16 @@ self.addEventListener('install', event => {
     fetch(DATA_URL).then(response => {
       return caches.open(CURRENT_CACHES.data).then(cache => {
         return cache.put(DATA_URL, response);
+      });
+    })
+  );
+
+  event.waitUntil(
+    // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
+    // the actual URL we end up requesting might include a cache-busting parameter.
+    fetch(INDEX_URL).then(response => {
+      return caches.open(CURRENT_CACHES.index).then(cache => {
+        return cache.put(INDEX_URL, response);
       });
     })
   );
@@ -55,7 +67,14 @@ self.addEventListener('fetch', event => {
 
     // Handle homepage
     if (event.request.url.match(/\/$|index\.html/i)) {
-      console.log('HOMEPAGE');
+      event.respondWith(
+          fetch(event.request).catch(error => {
+
+            console.log('Fetch failed; returning offline page for homepage instead.', error);
+
+            return caches.match(TEMPLATE_URL);
+          })
+        );
     }
 
     // Handle stories
@@ -70,7 +89,7 @@ self.addEventListener('fetch', event => {
 
             // 1) Get JSON, Get template, Replace placeholders in the template with the JSON, return to user
 
-            console.log('Fetch failed; returning offline page instead.', error);
+            console.log('Fetch failed; returning offline page for stories instead.', error);
 
             return caches.match(TEMPLATE_URL).then(template => {
                 return template.text().then(templateText => {
