@@ -12,8 +12,8 @@ self.addEventListener('install', event => {
   event.waitUntil(
     // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
     // the actual URL we end up requesting might include a cache-busting parameter.
-    fetch(TEMPLATE_URL).then(function(response) {
-      return caches.open(CURRENT_CACHES.templates).then(function(cache) {
+    fetch(TEMPLATE_URL).then(response => {
+      return caches.open(CURRENT_CACHES.templates).then(cache => {
         return cache.put(TEMPLATE_URL, response);
       });
     })
@@ -22,24 +22,24 @@ self.addEventListener('install', event => {
   event.waitUntil(
     // We can't use cache.add() here, since we want OFFLINE_URL to be the cache key, but
     // the actual URL we end up requesting might include a cache-busting parameter.
-    fetch(DATA_URL).then(function(response) {
-      return caches.open(CURRENT_CACHES.data).then(function(cache) {
+    fetch(DATA_URL).then(response => {
+      return caches.open(CURRENT_CACHES.data).then(cache => {
         return cache.put(DATA_URL, response);
       });
     })
   );
 });
 
-self.addEventListener('activate', function(event) {
-  var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
+self.addEventListener('activate', event => {
+  let expectedCacheNames = Object.keys(CURRENT_CACHES).map(key => {
     return CURRENT_CACHES[key];
   });
 
   // Active worker won't be treated as activated until promise resolves successfully.
   event.waitUntil(
-    caches.keys().then(function(cacheNames) {
+    caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(function(cacheName) {
+        cacheNames.map(cacheName => {
           if (expectedCacheNames.indexOf(cacheName) == -1) {
             console.log('Deleting out of date cache:', cacheName);
             return caches.delete(cacheName);
@@ -49,7 +49,6 @@ self.addEventListener('activate', function(event) {
     })
   );
 });
-
 
 self.addEventListener('fetch', event => {
     console.log('Handling fetch event for', event.request.url);
@@ -69,15 +68,15 @@ self.addEventListener('fetch', event => {
             console.log('Fetch failed; returning offline page instead.', error);
 
             return caches.match(TEMPLATE_URL).then(template => {
-                return template.text().then(function(templateText) {
+                return template.text().then(templateText => {
                     console.log('Template text: ');
                     console.log(templateText);
                     return caches.match(DATA_URL).then(data => {
-                        return data.json().then(function(json) {
+                        return data.json().then(json => {
 
                           var storyId = event.request.url.match(/[\d]{2,}/);
                           // do something with your JSON
-                          var final = templateText.replace(/{{headline}}/g, json.stories[storyId[0]].headline);
+                          var final = templateText.replace(/{{headline}}/g, json.stories[storyId[0]].headline );
                           final = final.replace("{{body}}", json.stories[storyId[0]].body);
                           return new Response(final, { "headers" : {"Content-Type" : "text/html" }});
                           //return caches.match(TEMPLATE_URL);
@@ -88,5 +87,4 @@ self.addEventListener('fetch', event => {
           })
         );
     }
-
 });
