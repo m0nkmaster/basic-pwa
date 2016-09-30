@@ -72,7 +72,7 @@ self.addEventListener('fetch', event => {
 
             console.log('Fetch failed; returning offline page for homepage instead.', error);
 
-            return caches.match(TEMPLATE_URL);
+            return caches.match(INDEX_URL);
           })
         );
     }
