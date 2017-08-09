@@ -32,7 +32,7 @@
       document.getElementById("moInterval").innerHTML = info;
     }
 
-    if ((window.DeviceMotionEvent) {
+    if (window.DeviceMotionEvent) {
       window.addEventListener('devicemotion', deviceMotionHandler, false);
     } else {
       document.getElementById("dmEvent").innerHTML = "Not supported."
